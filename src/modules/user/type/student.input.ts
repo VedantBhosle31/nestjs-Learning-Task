@@ -12,6 +12,4 @@ class NewStudent {
 }
 export { NewStudent }
 
-export function CreateUserInput(CreateUserInput: any) {
-  throw new Error('Function not implemented.');
-}
+

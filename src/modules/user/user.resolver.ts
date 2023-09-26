@@ -1,11 +1,10 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { Student } from './user.entity';
-import { CreateUserInput } from './type/student.input';
-import { multicast } from 'rxjs';
-import { UpdateStudent } from './type/updateStudent.input';
 
-@Resolver(() => Student)
+import { UpdateStudent } from './type/updateStudent.input';
+import { NewStudent } from './type/student.input';
+
 export class UserResolver {
   constructor(private readonly userService: UserService) { }
 
@@ -15,7 +14,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Student)
-  createuser(@Args('studentinput') studentinput: Student) {
+  createuser(@Args('studentinput') studentinput: NewStudent) {
     return this.userService.createuser(studentinput)
   }
 
@@ -29,6 +28,4 @@ export class UserResolver {
     @Args('inputuser') inputuser: UpdateStudent) {
     return this.userService.updateUser(id, inputuser)
   }
-
-
 }
