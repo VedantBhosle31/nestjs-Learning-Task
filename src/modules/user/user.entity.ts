@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Todo } from '../todo/todo.entity';
 
 
 @Entity("Student")
@@ -17,10 +18,13 @@ export class Student extends BaseEntity {
   @Column("text", { unique: true })
   email: string;
 
-  // @OneToMany(() => Todo, todos => todos.user, {
-  //   cascade: true
+  @Field()
+  password: string;
 
-  // })
-  // @Field(() => [Todo], { nullable: true })
-  // todos: Todo[]
+  @OneToMany(() => Todo, todos => todos.user, {
+    cascade: true
+
+  })
+  @Field(() => [Todo], { nullable: true })
+  todos: Todo[]
 }
