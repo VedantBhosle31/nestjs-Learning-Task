@@ -1,6 +1,12 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { BaseEntity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { Student } from '../user/user.entity';
+import {
+  BaseEntity,
+  Column,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Student } from '../student/student.entity';
 
 @ObjectType()
 export class Todo extends BaseEntity {
@@ -16,12 +22,9 @@ export class Todo extends BaseEntity {
   @Field()
   pending: string;
 
-  @ManyToOne(() => Student, user => user.todos, {
-    cascade: true
+  @ManyToOne(() => Student, (user) => user.todos, {
+    cascade: true,
   })
   @Field(() => Student)
   user: Student;
-
-
 }
-
