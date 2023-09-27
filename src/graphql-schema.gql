@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Student {
+  id: String!
+  name: String!
+  email: String
+  todos: [Todo!]
+}
+
 type Todo {
   id: String!
   done: String!
@@ -9,16 +16,8 @@ type Todo {
   user: Student!
 }
 
-type Student {
-  id: String!
-  name: String!
-  email: String!
-  password: String!
-  todos: [Todo!]
-}
-
 type Query {
-  getuser(id: String!): [Student!]!
+  getuser(id: String!): Student!
   getElement(id: String!): Todo!
 }
 

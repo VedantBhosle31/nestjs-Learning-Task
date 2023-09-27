@@ -13,7 +13,7 @@ lerna-debug.log*
 
 # OS
 .DS_Store
-
+/src/graphql-schema.gql
 # Tests
 /coverage
 /.nyc_output

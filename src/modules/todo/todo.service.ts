@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodo } from './type/create-todo.input';
 import { Todo } from './todo.entity';
-import { Student } from '../user/user.entity';
 import { EditTodo } from './type/update-todo.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Student } from '../student/student.entity';
 
 @Injectable()
 export class TodoService {
   constructor(
     @InjectRepository(Todo)
     private todoRepository: Repository<Todo>,
-  ) {}
+  ) { }
   async addElements(createElement: CreateTodo, studentId: string) {
     try {
       const element = new Todo();
@@ -19,8 +19,8 @@ export class TodoService {
       element.pending = createElement.pending;
       const user = await Student.findOne({ where: { id: studentId } });
       element.user = user!;
-      const todoCreated = await element.save();
-      return todoCreated;
+      return await this.todoRepository.save(element);
+
     } catch (e) {
       throw new Error(e.message);
     }
@@ -34,7 +34,7 @@ export class TodoService {
         todo.done = editElement.done;
         todo.pending = editElement.pending;
       }
-      const todoUpdated = await todo.save();
+      const todoUpdated = await this.todoRepository.save(todo);
       return todoUpdated;
     } catch (e) {
       throw new Error(`error : ${e}`);
@@ -45,7 +45,7 @@ export class TodoService {
     try {
       const todo = await Todo.findOne({ where: { id: id } });
       if (!todo) throw new Error('Invalid Id');
-      const deleteElement = await todo.remove();
+      const deleteElement = await this.todoRepository.remove(todo);
       return deleteElement;
     } catch (e) {
       throw new Error(`error : ${e}`);
@@ -54,7 +54,7 @@ export class TodoService {
 
   async getElement(id: string) {
     try {
-      const todo = await Todo.findOne({ where: { id: id } });
+      const todo = await this.todoRepository.findOne({ where: { id: id } });
       return todo;
     } catch (e) {
       throw new Error(e.message);

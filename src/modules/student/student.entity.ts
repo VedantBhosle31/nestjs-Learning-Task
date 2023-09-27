@@ -20,12 +20,14 @@ export class Student extends BaseEntity {
   @Field()
   name: string;
 
-  @Field()
-  @Column('text', { unique: true })
+  @Field({ nullable: true })
+  @Column('text', {
+    nullable: true,
+    unique: true
+  })
   email: string;
 
-  @Field()
-  password: string;
+
 
   @OneToMany(() => Todo, (todos) => todos.user, {
     cascade: true,

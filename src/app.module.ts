@@ -2,13 +2,11 @@ import { Module } from '@nestjs/common';
 import { TodoModule } from './modules/todo/todo.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Todo } from './modules/todo/todo.entity';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import * as dotenv from 'dotenv';
 import { StudentModule } from './modules/student/student.module';
+import * as dotenv from "dotenv";
 
 @Module({
   imports: [
@@ -25,11 +23,13 @@ import { StudentModule } from './modules/student/student.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'siddarth',
-      database: 'db',
+      password: 'vedant',
+      database: 'test2',
+      synchronize: true,
+      logging: false,
       autoLoadEntities: true,
       // entities: [Student, Todo],
     }),
   ],
 })
-export class AppModule {}
+export class AppModule { }

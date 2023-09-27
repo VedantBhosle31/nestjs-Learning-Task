@@ -8,9 +8,9 @@ import { NewStudent } from './type/student.input';
 
 @Resolver(() => Student)
 export class StudentResolver {
-  constructor(private readonly studentService: StudentService) {}
+  constructor(private readonly studentService: StudentService) { }
 
-  @Query(() => [Student])
+  @Query(() => Student)
   getuser(@Args('id') id: string) {
     return this.studentService.getuser(id);
   }

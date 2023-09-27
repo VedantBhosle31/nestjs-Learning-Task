@@ -12,11 +12,11 @@ export class StudentService {
   constructor(
     @InjectRepository(Student)
     private studentRepository: Repository<Student>,
-  ) {}
+  ) { }
 
   async getuser(id: string) {
     try {
-      let student = await Student.findOne({ where: { id: id } });
+      let student = await this.studentRepository.findOne({ where: { id: id } });
       return student;
     } catch (e) {
       throw new Error(e);
